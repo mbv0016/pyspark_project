@@ -1,0 +1,5 @@
+{
+    "source_path" : "path_name", 
+    "source_type" : "type_name",
+    "schema" : "schema_value"
+}
