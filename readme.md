@@ -22,3 +22,21 @@ def load_config(file_path):
     
     with open(file_path, 'r') as f:
         return json.load(f)
+
+
+
+
+
+-----------------------------------------------
+
+- send config file as argument while compiling program.
+    - python3 main.py config1 ( learn about args )
+
+- config {
+    infer_Schema : ""
+    schema  : ""
+    infer_header : ""
+    header : ""
+}
+
+--------------------------------------------------
