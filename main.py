@@ -57,6 +57,20 @@ def read_data(spark, config):
     
     return df
 
+
+def read_data_to_mysql(spark, df, sql_con):
+    mysql_url = "jdbc:mysql://{}:{}/{}".format(sql_con['host_name'],sql_con['port_name'],sql_con['db_name'])
+    df.write \
+        .format("jdbc") \
+        .option("driver","com.mysql.cj.jdbc.Driver") \
+        .option("url", mysql_url) \
+        .option("dbtable", sql_con['table_name']) \
+        .option("user", sql_con['user']) \
+        .option("password", sql_con['password']) \
+        .mode("overwrite") \
+        .save()
+
+
 def main():
     # Parse command-line arguments
     parser = argparse.ArgumentParser(description='Generic PySpark Data Reader')
@@ -64,13 +78,26 @@ def main():
     args = parser.parse_args()
 
     # Create Spark session
-    spark = SparkSession.builder.appName("GenericReader").getOrCreate()
+    spark = SparkSession.builder.appName("GenericReader") \
+    .config("spark.jars", "/Users/bharath/Downloads/mysql-connector-j-9.1.0/mysql-connector-j-9.1.0.jar") \
+    .getOrCreate()
 
     # Load configuration
     config = load_config(args.config_file)
 
+    sql_con = {
+        "host_name" : "localhost",
+        "port_name" : "3306",
+        "db_name" : "cheese_db",
+        "table_name" : config['table_name'],
+        "user" : "root",
+        "password" : "Mudundibv@54"
+    }
+
     # Read data using the configuration
     df = read_data(spark, config)
+
+    read_data_to_mysql(spark, df, sql_con)
 
     # Show the data
     df.show()
@@ -80,3 +107,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
