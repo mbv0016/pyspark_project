@@ -40,3 +40,30 @@ def load_config(file_path):
 }
 
 --------------------------------------------------
+changes in article
+- subheading (first letter caps)
+-description first , then code
+- in  reading a file, make two sub headings 
+- describe() , printschema() expalin breifly
+-column manuplation, change formating
+
+- add index
+---------------------------
+program article
+- keep hyper links instead of photos.
+
+
+
+
+- config {
+    infer_Schema : ""
+    schema  : ""
+    infer_header : ""
+    header : ""
+}
+
+
+
+
+--------------------------------------------------------
+url,dtable, user ,passs should be declared outside
